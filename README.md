@@ -67,3 +67,4 @@ Mở trình duyệt truy cập: `http://localhost:3000`
 
 #### Lựa chọn C: Netlify Drop / GitHub Pages (Tĩnh 100% không cần server)
 Vì website có sẵn cơ chế **Dual-Mode Fallback**, bạn chỉ cần kéo-thả toàn bộ thư mục `public` vào [Netlify Drop](https://app.netlify.com/drop) là trang web sẽ hoạt động ngay lập tức với đầy đủ tính năng tạo bài, xem video và lưu vào máy của bạn!
+

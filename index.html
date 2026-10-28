@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khoảng Lặng • Nhật Ký & Thước Phim Cá Nhân</title>
+
+  <!-- Typography: Newsreader (Serif tinh tế) + Be Vietnam Pro (Sans-serif tiếng Việt) + Space Mono (Monospace cho ngày tháng) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout-wrapper">
+    <!-- Header tinh giản -->
+    <header class="site-header">
+      <div class="brand">
+        <a href="/" class="brand-link">
+          <h1 class="brand-title">Khoảng Lặng</h1>
+        </a>
+        <p class="brand-tagline">Ghi chép những suy tư thường nhật & thước phim đáng nhớ.</p>
+      </div>
+
+      <nav class="header-nav">
+        <!-- Chuyển chế độ sáng/tối -->
+        <button id="themeToggle" class="btn-icon" aria-label="Chuyển chế độ sáng/tối" title="Sáng / Tối">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- Nút tạo bài viết mới -->
+        <button id="openModalBtn" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Viết bài mới
+        </button>
+      </nav>
+    </header>
+
+    <!-- Thanh phân loại & tìm kiếm -->
+    <section class="toolbar-section">
+      <div class="category-filters" id="catFilters">
+        <button class="pill-btn active" data-cat="all">Tất cả</button>
+        <button class="pill-btn" data-cat="Video">Video & Thước phim</button>
+        <button class="pill-btn" data-cat="Tản văn">Tản văn</button>
+        <button class="pill-btn" data-cat="Đời sống">Đời sống</button>
+      </div>
+
+      <div class="search-container">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Tìm theo từ khóa..." aria-label="Tìm kiếm bài viết">
+      </div>
+    </section>
+
+    <!-- Feed bài viết -->
+    <main class="feed-container" id="feedContainer">
+      <div class="state-loading">
+        <span class="loading-dot"></span>
+        <p>Đang chuẩn bị trang sách...</p>
+      </div>
+    </main>
+
+    <!-- Chân trang -->
+    <footer class="site-footer">
+      <div class="footer-meta">
+        <p>© <span id="yearSpan"></span> Khoảng Lặng. Thiết kế tối giản cho người yêu chữ & hình ảnh.</p>
+        <div class="data-actions">
+          <button id="exportBtn" class="link-btn">Sao lưu dữ liệu</button>
+          <span class="divider-dot">•</span>
+          <button id="importBtn" class="link-btn">Khôi phục</button>
+          <input type="file" id="filePicker" accept=".json" style="display: none;">
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Modal Soạn Thảo Bài Viết -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-top">
+        <h2 id="modalTitle" class="modal-heading">Ghi lại câu chuyện mới</h2>
+        <button id="closeModalBtn" class="close-x-btn" aria-label="Đóng cửa sổ">&times;</button>
+      </div>
+
+      <form id="composeForm">
+        <div class="field-group">
+          <label for="postTitle" class="field-label">Tiêu đề bài viết</label>
+          <input type="text" id="postTitle" class="field-input" placeholder="Ví dụ: Hoàng hôn trên cánh đồng lúa..." required autocomplete="off">
+        </div>
+
+        <div class="field-row">
+          <div class="field-group flex-1">
+            <label for="postCategory" class="field-label">Chuyên mục</label>
+            <select id="postCategory" class="field-input field-select">
+              <option value="Video">Video & Thước phim</option>
+              <option value="Tản văn">Tản văn / Suy ngẫm</option>
+              <option value="Đời sống">Khoảnh khắc đời sống</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="postVideo" class="field-label">
+            Liên kết Video
+            <span class="field-hint">(Hỗ trợ YouTube, Vimeo, link trực tiếp .mp4)</span>
+          </label>
+          <input type="url" id="postVideo" class="field-input" placeholder="https://www.youtube.com/watch?v=...">
+          
+          <!-- Hộp xem trước video trực tiếp -->
+          <div id="videoLivePreview" class="video-preview-box" style="display: none;"></div>
+        </div>
+
+        <div class="field-group">
+          <label for="postContent" class="field-label">Nội dung câu chuyện</label>
+          <textarea id="postContent" class="field-input field-textarea" rows="6" placeholder="Chia sẻ những suy tư hoặc câu chuyện đằng sau thước phim này..." required></textarea>
+        </div>
+
+        <div class="modal-bottom">
+          <button type="button" id="cancelModalBtn" class="btn btn-ghost">Hủy bỏ</button>
+          <button type="submit" id="submitBtn" class="btn btn-primary">Xuất bản bài viết</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
