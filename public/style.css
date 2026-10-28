@@ -49,6 +49,103 @@
   --shadow-warm: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
 }
 
+/* Chế độ Nền Chuyển Màu Động Gợn Sóng (Dynamic Wave Mode) */
+[data-theme="custom-wave"] {
+  --wave-hue: 145;
+  --wave-sat: 45%;
+  --wave-c1: hsl(var(--wave-hue), var(--wave-sat), 20%);
+  --wave-c2: hsl(calc(var(--wave-hue) + 30), calc(var(--wave-sat) + 10%), 26%);
+  --wave-c3: hsl(calc(var(--wave-hue) - 25), var(--wave-sat), 14%);
+  --wave-c4: hsl(calc(var(--wave-hue) + 50), calc(var(--wave-sat) - 5%), 32%);
+
+  --bg-canvas: var(--wave-c3);
+  --surface: rgba(22, 26, 23, 0.55);
+  --text-primary: #FAF8F5;
+  --text-secondary: #D4D0C7;
+  --text-tertiary: #A6A29A;
+  --border-subtle: rgba(255, 255, 255, 0.16);
+  --border-hover: rgba(255, 255, 255, 0.32);
+  --pill-bg: rgba(255, 255, 255, 0.12);
+
+  --accent: hsl(calc(var(--wave-hue) + 20), 75%, 72%);
+  --accent-hover: hsl(calc(var(--wave-hue) + 20), 85%, 80%);
+  --accent-light: rgba(255, 255, 255, 0.15);
+  --shadow-warm: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="custom-wave"] body {
+  background-color: var(--wave-c3);
+}
+
+/* Lớp nền gợn sóng động */
+.wave-backdrop-canvas {
+  display: none;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+[data-theme="custom-wave"] .wave-backdrop-canvas {
+  display: block;
+}
+
+.wave-layer {
+  position: absolute;
+  inset: -25%;
+  background: 
+    radial-gradient(circle at 25% 30%, var(--wave-c1) 0%, transparent 55%),
+    radial-gradient(circle at 80% 65%, var(--wave-c2) 0%, transparent 60%),
+    radial-gradient(circle at 45% 85%, var(--wave-c3) 0%, transparent 65%),
+    radial-gradient(circle at 75% 20%, var(--wave-c4) 0%, transparent 50%);
+  filter: blur(65px);
+  opacity: 0.9;
+  animation: waveUndulate 18s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+
+.wave-layer-2 {
+  position: absolute;
+  inset: -20%;
+  background: 
+    radial-gradient(circle at 60% 35%, var(--wave-c4) 0%, transparent 50%),
+    radial-gradient(circle at 30% 75%, var(--wave-c2) 0%, transparent 55%);
+  filter: blur(80px);
+  opacity: 0.65;
+  animation: waveUndulateReverse 24s ease-in-out infinite alternate;
+}
+
+@keyframes waveUndulate {
+  0% { transform: scale(1) translate(0, 0) rotate(0deg); }
+  50% { transform: scale(1.12) translate(-3%, 3%) rotate(6deg); }
+  100% { transform: scale(1.04) translate(3%, -3%) rotate(-5deg); }
+}
+
+@keyframes waveUndulateReverse {
+  0% { transform: scale(1.08) translate(3%, -2%) rotate(0deg); }
+  50% { transform: scale(0.96) translate(-2%, 3%) rotate(-6deg); }
+  100% { transform: scale(1.15) translate(2%, 2%) rotate(5deg); }
+}
+
+[data-theme="custom-wave"] .post-entry {
+  background: rgba(22, 26, 23, 0.52);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="custom-wave"] .search-container {
+  background: rgba(22, 26, 23, 0.6);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+[data-theme="custom-wave"] .btn-primary {
+  color: #131416;
+}
+
 /* Reset cơ bản */
 * {
   box-sizing: border-box;
@@ -209,8 +306,15 @@ body {
 
 .icon-sun { display: none; }
 .icon-moon { display: block; }
-[data-theme="dark"] .icon-sun { display: block; }
+.icon-wave { display: none; }
+
+[data-theme="dark"] .icon-sun { display: none; }
 [data-theme="dark"] .icon-moon { display: none; }
+[data-theme="dark"] .icon-wave { display: block; }
+
+[data-theme="custom-wave"] .icon-sun { display: block; }
+[data-theme="custom-wave"] .icon-moon { display: none; }
+[data-theme="custom-wave"] .icon-wave { display: none; }
 
 /* ==========================================================================
    Toolbar: Category Filter & Search
@@ -617,5 +721,236 @@ body {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+/* ==========================================================================
+   Wave Color Picker Modal & Controls
+   ========================================================================== */
+.wave-picker-card {
+  max-width: 520px;
+}
+
+.modal-subheading {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 350;
+  margin-top: 2px;
+}
+
+.picker-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 12px;
+}
+
+.picker-tab-btn {
+  background: none;
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.picker-tab-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.picker-tab-btn.active {
+  background: var(--pill-bg);
+  border-color: var(--accent);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+/* Preset Cards */
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 480px) {
+  .preset-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.preset-card {
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  outline: none;
+}
+
+.preset-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+}
+
+.preset-card.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+  background: var(--surface);
+}
+
+.preset-swatch {
+  width: 100%;
+  height: 32px;
+  border-radius: 4px;
+  display: block;
+}
+
+.preset-name {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Sliders */
+.slider-group {
+  margin-bottom: 18px;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.slider-val {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.custom-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  outline: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.hue-slider {
+  background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+}
+
+.sat-slider {
+  background: linear-gradient(to right, #555555, #2ecc71);
+}
+
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--accent);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* Mini Wave Preview */
+.wave-preview-section {
+  margin: 18px 0;
+  padding: 12px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.preview-label {
+  display: block;
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.mini-wave-preview {
+  position: relative;
+  height: 60px;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--wave-hue, 145), var(--wave-sat, 45%), 18%);
+}
+
+.mini-wave-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(16px);
+  opacity: 0.85;
+}
+
+.mini-wave-orb.orb-1 {
+  width: 70px;
+  height: 70px;
+  background: hsl(calc(var(--wave-hue, 145) + 30), calc(var(--wave-sat, 45%) + 10%), 32%);
+  top: -10px;
+  left: 20%;
+  animation: miniWaveMove 6s ease-in-out infinite alternate;
+}
+
+.mini-wave-orb.orb-2 {
+  width: 80px;
+  height: 80px;
+  background: hsl(calc(var(--wave-hue, 145) - 20), var(--wave-sat, 45%), 26%);
+  bottom: -15px;
+  right: 25%;
+  animation: miniWaveMoveRev 8s ease-in-out infinite alternate;
+}
+
+@keyframes miniWaveMove {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, 15px) scale(1.2); }
+}
+
+@keyframes miniWaveMoveRev {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-25px, -10px) scale(0.9); }
+}
+
+.mini-wave-text {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #FAF8F5;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 

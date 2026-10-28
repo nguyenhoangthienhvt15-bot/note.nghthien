@@ -10,10 +10,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=3">
-  <link rel="icon" type="image/jpeg" href="logo.jpg?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="icon" type="image/jpeg" href="logo.jpg?v=4">
 </head>
 <body>
+  <!-- Lớp nền gợn sóng động chuyển màu -->
+  <div class="wave-backdrop-canvas" aria-hidden="true">
+    <div class="wave-layer"></div>
+    <div class="wave-layer-2"></div>
+  </div>
+
   <div class="layout-wrapper">
     <!-- Header tinh giản -->
     <header class="site-header">
@@ -28,8 +34,8 @@
       </div>
 
       <nav class="header-nav">
-        <!-- Chuyển chế độ sáng/tối -->
-        <button id="themeToggle" class="btn-icon" aria-label="Chuyển chế độ sáng/tối" title="Sáng / Tối">
+        <!-- Chuyển chế độ 3 trong 1: Sáng -> Tối -> Sóng Động -->
+        <button id="themeToggle" class="btn-icon" aria-label="Đổi chế độ giao diện" title="Đổi chế độ: Sáng / Tối / Sóng Động">
           <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -43,6 +49,11 @@
           </svg>
           <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg class="icon-wave" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M2 12c2.5-3 5-3 7.5 0s5 3 7.5 0 5-3 5-3"></path>
+            <path d="M2 6c2.5-3 5-3 7.5 0s5 3 7.5 0 5-3 5-3"></path>
+            <path d="M2 18c2.5-3 5-3 7.5 0s5 3 7.5 0 5-3 5-3"></path>
           </svg>
         </button>
 
@@ -146,7 +157,98 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <!-- Modal Tùy Chỉnh Nền Gợn Sóng Động -->
+  <div class="modal-overlay" id="waveColorModal" role="dialog" aria-modal="true" aria-labelledby="waveModalTitle">
+    <div class="modal-card wave-picker-card">
+      <div class="modal-top">
+        <div>
+          <h2 id="waveModalTitle" class="modal-heading">Nền Sóng Màu Động</h2>
+          <p class="modal-subheading">Nền trang chuyển động gợn sóng êm dịu theo màu sắc bạn chọn.</p>
+        </div>
+        <button id="closeWaveModalBtn" class="close-x-btn" aria-label="Đóng">&times;</button>
+      </div>
+
+      <!-- Hai tab chọn màu: Thủ công & Căn chỉnh thanh màu -->
+      <div class="picker-tabs">
+        <button type="button" class="picker-tab-btn active" data-tab="presets">Bảng màu thủ công</button>
+        <button type="button" class="picker-tab-btn" data-tab="sliders">Căn chỉnh thanh màu</button>
+      </div>
+
+      <!-- Tab 1: Chọn thủ công từ bảng màu sẵn -->
+      <div id="tabPresets" class="tab-pane active">
+        <div class="preset-grid">
+          <button type="button" class="preset-card active" data-hue="145" data-sat="45">
+            <span class="preset-swatch" style="background: linear-gradient(135deg, #354737, #5c7c60);"></span>
+            <span class="preset-name">Rêu Sương</span>
+          </button>
+          <button type="button" class="preset-card" data-hue="215" data-sat="55">
+            <span class="preset-swatch" style="background: linear-gradient(135deg, #1b304d, #3c6e9e);"></span>
+            <span class="preset-name">Biển Đêm</span>
+          </button>
+          <button type="button" class="preset-card" data-hue="32" data-sat="55">
+            <span class="preset-swatch" style="background: linear-gradient(135deg, #4f311c, #8c5732);"></span>
+            <span class="preset-name">Hoàng Hôn</span>
+          </button>
+          <button type="button" class="preset-card" data-hue="345" data-sat="45">
+            <span class="preset-swatch" style="background: linear-gradient(135deg, #4d2b35, #855361);"></span>
+            <span class="preset-name">Hoa Hồng Khô</span>
+          </button>
+          <button type="button" class="preset-card" data-hue="185" data-sat="45">
+            <span class="preset-swatch" style="background: linear-gradient(135deg, #23434a, #4a7782);"></span>
+            <span class="preset-name">Trời Bắc Âu</span>
+          </button>
+          <button type="button" class="preset-card" data-hue="265" data-sat="40">
+            <span class="preset-swatch" style="background: linear-gradient(135deg, #382c47, #665380);"></span>
+            <span class="preset-name">Oải Hương</span>
+          </button>
+          <button type="button" class="preset-card" data-hue="85" data-sat="40">
+            <span class="preset-swatch" style="background: linear-gradient(135deg, #3a472c, #6c8053);"></span>
+            <span class="preset-name">Trà Kyoto</span>
+          </button>
+          <button type="button" class="preset-card" data-hue="240" data-sat="20">
+            <span class="preset-swatch" style="background: linear-gradient(135deg, #22252e, #474c5e);"></span>
+            <span class="preset-name">Mực Khói</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab 2: Căn chỉnh thanh màu tùy chỉnh -->
+      <div id="tabSliders" class="tab-pane">
+        <div class="slider-group">
+          <div class="slider-header">
+            <label for="hueRange" class="field-label">Sắc độ màu (Hue)</label>
+            <span id="hueValDisplay" class="slider-val">145°</span>
+          </div>
+          <input type="range" id="hueRange" min="0" max="360" value="145" class="custom-slider hue-slider">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <label for="satRange" class="field-label">Độ đậm của màu (Saturation)</label>
+            <span id="satValDisplay" class="slider-val">45%</span>
+          </div>
+          <input type="range" id="satRange" min="15" max="85" value="45" class="custom-slider sat-slider">
+        </div>
+      </div>
+
+      <!-- Khung xem trước hiệu ứng gợn sóng trực tiếp -->
+      <div class="wave-preview-section">
+        <span class="preview-label">Xem trước sóng chuyển động:</span>
+        <div class="mini-wave-preview" id="miniWavePreview">
+          <div class="mini-wave-orb orb-1"></div>
+          <div class="mini-wave-orb orb-2"></div>
+          <span class="mini-wave-text">Gợn sóng êm dịu</span>
+        </div>
+      </div>
+
+      <div class="modal-bottom">
+        <button type="button" id="cancelWaveModalBtn" class="btn btn-ghost">Hủy</button>
+        <button type="button" id="applyWaveModalBtn" class="btn btn-primary">OK (Áp dụng màu này)</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=4"></script>
 </body>
 </html>
 

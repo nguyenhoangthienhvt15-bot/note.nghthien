@@ -36,22 +36,151 @@
   }
 
   /* ==========================================================================
-     1. Khởi tạo Giao diện Sáng / Tối (Theme Mode)
+     1. Khởi tạo Giao diện 3 trong 1 (Sáng -> Tối -> Sóng Động) & Bảng Màu
      ========================================================================== */
-  function initTheme() {
-    const savedTheme = localStorage.getItem('journal_theme') || 
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', savedTheme);
+  const waveColorModal = document.getElementById('waveColorModal');
+  const closeWaveModalBtn = document.getElementById('closeWaveModalBtn');
+  const cancelWaveModalBtn = document.getElementById('cancelWaveModalBtn');
+  const applyWaveModalBtn = document.getElementById('applyWaveModalBtn');
+  const hueRange = document.getElementById('hueRange');
+  const satRange = document.getElementById('satRange');
+  const hueValDisplay = document.getElementById('hueValDisplay');
+  const satValDisplay = document.getElementById('satValDisplay');
+  const miniWavePreview = document.getElementById('miniWavePreview');
+  const pickerTabBtns = document.querySelectorAll('.picker-tab-btn');
+  const tabPresets = document.getElementById('tabPresets');
+  const tabSliders = document.getElementById('tabSliders');
+  const presetCards = document.querySelectorAll('.preset-card');
+
+  let currentTheme = localStorage.getItem('journal_theme') || 'light';
+  let waveHue = parseInt(localStorage.getItem('wave_hue') || '145', 10);
+  let waveSat = parseInt(localStorage.getItem('wave_sat') || '45', 10);
+
+  function applyWaveColors(hue, sat) {
+    document.documentElement.style.setProperty('--wave-hue', hue);
+    document.documentElement.style.setProperty('--wave-sat', `${sat}%`);
+    if (hueRange) hueRange.value = hue;
+    if (satRange) satRange.value = sat;
+    if (hueValDisplay) hueValDisplay.textContent = `${hue}°`;
+    if (satValDisplay) satValDisplay.textContent = `${sat}%`;
+    if (miniWavePreview) {
+      miniWavePreview.style.background = `hsl(${hue}, ${sat}%, 18%)`;
+      const orb1 = miniWavePreview.querySelector('.orb-1');
+      const orb2 = miniWavePreview.querySelector('.orb-2');
+      if (orb1) orb1.style.background = `hsl(${(hue + 30) % 360}, ${sat + 10}%, 32%)`;
+      if (orb2) orb2.style.background = `hsl(${(hue - 20 + 360) % 360}, ${sat}%, 26%)`;
+    }
   }
 
+  function setTheme(theme, save = true) {
+    currentTheme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    if (theme === 'custom-wave') {
+      applyWaveColors(waveHue, waveSat);
+    }
+    if (save) {
+      localStorage.setItem('journal_theme', theme);
+    }
+  }
+
+  function openWaveModal() {
+    if (waveColorModal) {
+      waveColorModal.classList.add('open');
+      applyWaveColors(waveHue, waveSat);
+    }
+  }
+
+  function closeWaveModal() {
+    if (waveColorModal) {
+      waveColorModal.classList.remove('open');
+    }
+  }
+
+  // Khởi chạy Theme ban đầu
+  applyWaveColors(waveHue, waveSat);
+  setTheme(currentTheme, false);
+
+  // Chu kỳ bấm nút: Sáng -> Tối -> Sóng Động (tự động hiện bảng màu) -> Sáng...
   themeToggle.addEventListener('click', () => {
-    const active = document.documentElement.getAttribute('data-theme') || 'light';
-    const nextTheme = active === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', nextTheme);
-    localStorage.setItem('journal_theme', nextTheme);
+    if (currentTheme === 'light') {
+      setTheme('dark');
+    } else if (currentTheme === 'dark') {
+      setTheme('custom-wave');
+      openWaveModal();
+    } else {
+      setTheme('light');
+      closeWaveModal();
+    }
   });
 
-  initTheme();
+  // Chuyển Tab trong bảng màu
+  pickerTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      pickerTabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.getAttribute('data-tab');
+      if (tab === 'presets') {
+        tabPresets.classList.add('active');
+        tabSliders.classList.remove('active');
+      } else {
+        tabSliders.classList.add('active');
+        tabPresets.classList.remove('active');
+      }
+    });
+  });
+
+  // Chọn nhanh từ preset cards
+  presetCards.forEach(card => {
+    card.addEventListener('click', () => {
+      presetCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const h = parseInt(card.getAttribute('data-hue'), 10);
+      const s = parseInt(card.getAttribute('data-sat'), 10);
+      waveHue = h;
+      waveSat = s;
+      applyWaveColors(waveHue, waveSat);
+    });
+  });
+
+  // Kéo thanh trượt Hue & Saturation
+  if (hueRange) {
+    hueRange.addEventListener('input', (e) => {
+      waveHue = parseInt(e.target.value, 10);
+      presetCards.forEach(c => c.classList.remove('active'));
+      applyWaveColors(waveHue, waveSat);
+    });
+  }
+
+  if (satRange) {
+    satRange.addEventListener('input', (e) => {
+      waveSat = parseInt(e.target.value, 10);
+      presetCards.forEach(c => c.classList.remove('active'));
+      applyWaveColors(waveHue, waveSat);
+    });
+  }
+
+  // Bấm OK để áp dụng và lưu
+  if (applyWaveModalBtn) {
+    applyWaveModalBtn.addEventListener('click', () => {
+      localStorage.setItem('wave_hue', waveHue.toString());
+      localStorage.setItem('wave_sat', waveSat.toString());
+      closeWaveModal();
+    });
+  }
+
+  if (cancelWaveModalBtn) {
+    cancelWaveModalBtn.addEventListener('click', closeWaveModal);
+  }
+
+  if (closeWaveModalBtn) {
+    closeWaveModalBtn.addEventListener('click', closeWaveModal);
+  }
+
+  if (waveColorModal) {
+    waveColorModal.addEventListener('click', (e) => {
+      if (e.target === waveColorModal) closeWaveModal();
+    });
+  }
 
   /* ==========================================================================
      2. Trình Phân Tích & Nhúng Video (Video Embed Parser)
