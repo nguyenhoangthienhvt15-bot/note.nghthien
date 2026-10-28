@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=4">
-  <link rel="icon" type="image/jpeg" href="logo.jpg?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="icon" type="image/jpeg" href="logo.jpg?v=5">
 </head>
 <body>
   <!-- Lớp nền gợn sóng động chuyển màu -->
@@ -75,6 +75,7 @@
         <button class="pill-btn" data-cat="Video">Video & Thước phim</button>
         <button class="pill-btn" data-cat="Tản văn">Tản văn</button>
         <button class="pill-btn" data-cat="Đời sống">Đời sống</button>
+        <button class="pill-btn" data-cat="Tài liệu">Tài liệu & PDF</button>
       </div>
 
       <div class="search-container">
@@ -129,19 +130,53 @@
               <option value="Video">Video & Thước phim</option>
               <option value="Tản văn">Tản văn / Suy ngẫm</option>
               <option value="Đời sống">Khoảnh khắc đời sống</option>
+              <option value="Tài liệu">Tài liệu & Bản thảo PDF</option>
             </select>
           </div>
         </div>
 
         <div class="field-group">
           <label for="postVideo" class="field-label">
-            Liên kết Video
+            Liên kết Video trực tuyến
             <span class="field-hint">(Hỗ trợ YouTube, Vimeo, link trực tiếp .mp4)</span>
           </label>
           <input type="url" id="postVideo" class="field-input" placeholder="https://www.youtube.com/watch?v=...">
           
           <!-- Hộp xem trước video trực tiếp -->
           <div id="videoLivePreview" class="video-preview-box" style="display: none;"></div>
+        </div>
+
+        <!-- Đính kèm Tệp từ máy tính: Ảnh, Video MP4 hoặc PDF -->
+        <div class="field-group">
+          <label class="field-label">
+            Đính kèm từ máy tính của bạn
+            <span class="field-hint">(Chọn Ảnh, Video MP4 hoặc File PDF)</span>
+          </label>
+          
+          <div class="file-upload-wrapper">
+            <input type="file" id="postFileInput" accept="image/*,video/*,application/pdf" style="display: none;">
+            
+            <div class="drop-zone" id="dropZone">
+              <svg class="drop-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <p class="drop-text">Nhấn để chọn tệp hoặc kéo thả vào đây</p>
+              <span class="drop-subtext">Hỗ trợ Ảnh (JPG, PNG), Video (MP4) & Tài liệu (PDF)</span>
+            </div>
+
+            <!-- Khung thông tin và xem trước tệp đã đính kèm -->
+            <div class="file-preview-card" id="filePreviewCard" style="display: none;">
+              <div class="file-info-row">
+                <span class="file-type-badge" id="fileTypeBadge">FILE</span>
+                <span class="file-name" id="fileNameDisplay">tentep.pdf</span>
+                <span class="file-size" id="fileSizeDisplay">1.2 MB</span>
+                <button type="button" class="remove-file-btn" id="removeFileBtn" title="Bỏ chọn tệp này">&times;</button>
+              </div>
+              <div class="file-visual-preview" id="fileVisualPreview"></div>
+            </div>
+          </div>
         </div>
 
         <div class="field-group">
@@ -248,7 +283,7 @@
     </div>
   </div>
 
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>
 

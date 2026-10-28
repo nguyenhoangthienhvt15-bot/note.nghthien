@@ -91,7 +91,7 @@ function getRequestBody(req) {
     let body = '';
     req.on('data', chunk => {
       body += chunk.toString();
-      if (body.length > 10 * 1024 * 1024) { // Giới hạn 10MB
+      if (body.length > 50 * 1024 * 1024) { // Giới hạn 50MB cho tệp đính kèm
         reject(new Error('Payload too large'));
       }
     });
@@ -188,7 +188,7 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/posts' && method === 'POST') {
     try {
       const data = await getRequestBody(req);
-      const { title, content, category, videoUrl } = data;
+      const { title, content, category, videoUrl, attachment } = data;
 
       if (!title || !title.trim()) {
         sendJSON(res, 400, { error: 'Tiêu đề không được để trống' });
@@ -212,6 +212,7 @@ const server = http.createServer(async (req, res) => {
         title: title.trim(),
         category: category && category.trim() ? category.trim() : 'Suy ngẫm',
         videoUrl: videoUrl ? videoUrl.trim() : '',
+        attachment: attachment || null,
         content: content.trim(),
         date: formattedDate,
         timestamp: Date.now()

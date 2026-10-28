@@ -297,28 +297,84 @@
       return;
     }
 
-    feedContainer.innerHTML = filtered.map(post => `
-      <article class="post-entry" id="${post.id}">
-        <div class="post-top">
-          <span class="post-badge">${escapeHTML(post.category || 'Suy ngẫm')}</span>
-          <time class="post-timestamp">${escapeHTML(post.date || '')}</time>
-        </div>
+    feedContainer.innerHTML = filtered.map(post => {
+      // 1. Video trực tuyến (YouTube / Vimeo)
+      let mediaHTML = post.videoUrl ? parseVideoToHTML(post.videoUrl) : '';
 
-        <h2 class="post-heading">${escapeHTML(post.title)}</h2>
+      // 2. Tệp đính kèm từ máy (Ảnh, Video MP4, hoặc PDF)
+      if (post.attachment && post.attachment.data) {
+        if (post.attachment.type === 'image') {
+          mediaHTML += `
+            <div class="post-media-box">
+              <img src="${post.attachment.data}" alt="${escapeHTML(post.title)}" class="post-attached-image" loading="lazy">
+            </div>
+          `;
+        } else if (post.attachment.type === 'video') {
+          mediaHTML += `
+            <div class="media-viewport">
+              <video controls preload="metadata">
+                <source src="${post.attachment.data}">
+                Trình duyệt không hỗ trợ thẻ video này.
+              </video>
+            </div>
+          `;
+        } else if (post.attachment.type === 'pdf') {
+          mediaHTML += `
+            <div class="pdf-attachment-card">
+              <div class="pdf-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+              </div>
+              <div class="pdf-details">
+                <span class="pdf-name-title">${escapeHTML(post.attachment.name || 'Tài liệu PDF')}</span>
+                <span class="pdf-size-meta">${escapeHTML(post.attachment.size || 'Tài liệu đính kèm')}</span>
+              </div>
+              <div class="pdf-action-buttons">
+                <button type="button" class="btn btn-outline btn-sm" onclick="window.togglePdfViewer('${post.id}')">Đọc PDF</button>
+                <a href="${post.attachment.data}" download="${escapeHTML(post.attachment.name || 'document.pdf')}" class="btn btn-primary btn-sm">Tải về</a>
+              </div>
+            </div>
+            <div class="pdf-frame-collapse" id="pdfViewer-${post.id}" style="display: none;">
+              <iframe src="${post.attachment.data}" class="pdf-iframe-reader" title="Trình đọc PDF"></iframe>
+            </div>
+          `;
+        }
+      }
 
-        ${post.videoUrl ? parseVideoToHTML(post.videoUrl) : ''}
+      return `
+        <article class="post-entry" id="${post.id}">
+          <div class="post-top">
+            <span class="post-badge">${escapeHTML(post.category || 'Suy ngẫm')}</span>
+            <time class="post-timestamp">${escapeHTML(post.date || '')}</time>
+          </div>
 
-        <div class="post-body">${escapeHTML(post.content)}</div>
+          <h2 class="post-heading">${escapeHTML(post.title)}</h2>
 
-        <div class="post-bottom">
-          <span class="post-label">#nhật_ký</span>
-          <button class="delete-action-btn" onclick="window.deletePost('${post.id}')" title="Xóa bài viết này">
-            Xóa bài
-          </button>
-        </div>
-      </article>
-    `).join('');
+          ${mediaHTML}
+
+          <div class="post-body">${escapeHTML(post.content)}</div>
+
+          <div class="post-bottom">
+            <span class="post-label">#nhật_ký</span>
+            <button class="delete-action-btn" onclick="window.deletePost('${post.id}')" title="Xóa bài viết này">
+              Xóa bài
+            </button>
+          </div>
+        </article>
+      `;
+    }).join('');
   }
+
+  window.togglePdfViewer = function (postId) {
+    const el = document.getElementById('pdfViewer-' + postId);
+    if (el) {
+      el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    }
+  };
 
   function escapeHTML(str) {
     if (!str) return '';
@@ -328,8 +384,120 @@
   }
 
   /* ==========================================================================
-     4. Soạn thảo & Đăng bài mới
+     4. Soạn thảo, Đính kèm Tệp (Ảnh, Video, PDF) & Đăng bài
      ========================================================================== */
+  const postFileInput = document.getElementById('postFileInput');
+  const dropZone = document.getElementById('dropZone');
+  const filePreviewCard = document.getElementById('filePreviewCard');
+  const fileTypeBadge = document.getElementById('fileTypeBadge');
+  const fileNameDisplay = document.getElementById('fileNameDisplay');
+  const fileSizeDisplay = document.getElementById('fileSizeDisplay');
+  const removeFileBtn = document.getElementById('removeFileBtn');
+  const fileVisualPreview = document.getElementById('fileVisualPreview');
+
+  let currentAttachment = null;
+
+  function formatBytes(bytes) {
+    if (!bytes || bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+  }
+
+  function handleFileSelected(file) {
+    if (!file) return;
+
+    let type = 'file';
+    let badgeText = 'TỆP';
+
+    if (file.type.startsWith('image/')) {
+      type = 'image';
+      badgeText = 'ẢNH';
+    } else if (file.type.startsWith('video/') || file.name.match(/\.(mp4|webm|mov)$/i)) {
+      type = 'video';
+      badgeText = 'VIDEO';
+    } else if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+      type = 'pdf';
+      badgeText = 'PDF';
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const dataUrl = e.target.result;
+      currentAttachment = {
+        type: type,
+        name: file.name,
+        size: formatBytes(file.size),
+        data: dataUrl
+      };
+
+      if (fileTypeBadge) fileTypeBadge.textContent = badgeText;
+      if (fileNameDisplay) fileNameDisplay.textContent = file.name;
+      if (fileSizeDisplay) fileSizeDisplay.textContent = formatBytes(file.size);
+
+      if (fileVisualPreview) {
+        if (type === 'image') {
+          fileVisualPreview.innerHTML = `<img src="${dataUrl}" alt="Preview" style="max-height:160px; object-fit:contain;">`;
+          fileVisualPreview.style.display = 'flex';
+        } else if (type === 'video') {
+          fileVisualPreview.innerHTML = `<video src="${dataUrl}" controls style="max-height:160px; max-width:100%;"></video>`;
+          fileVisualPreview.style.display = 'flex';
+        } else if (type === 'pdf') {
+          fileVisualPreview.innerHTML = `
+            <div style="padding:14px; text-align:center; color:#FFF; font-size:0.85rem;">
+              📄 Đã sẵn sàng đính kèm tệp PDF: <strong>${escapeHTML(file.name)}</strong>
+            </div>
+          `;
+          fileVisualPreview.style.display = 'flex';
+        } else {
+          fileVisualPreview.style.display = 'none';
+        }
+      }
+
+      if (filePreviewCard) filePreviewCard.style.display = 'block';
+      if (dropZone) dropZone.style.display = 'none';
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  if (dropZone && postFileInput) {
+    dropZone.addEventListener('click', () => postFileInput.click());
+    postFileInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files[0]) {
+        handleFileSelected(e.target.files[0]);
+      }
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        handleFileSelected(e.dataTransfer.files[0]);
+      }
+    });
+  }
+
+  function resetAttachment() {
+    currentAttachment = null;
+    if (postFileInput) postFileInput.value = '';
+    if (filePreviewCard) filePreviewCard.style.display = 'none';
+    if (dropZone) dropZone.style.display = 'flex';
+    if (fileVisualPreview) fileVisualPreview.innerHTML = '';
+  }
+
+  if (removeFileBtn) {
+    removeFileBtn.addEventListener('click', resetAttachment);
+  }
+
   window.openComposeModal = function () {
     modalOverlay.classList.add('open');
     document.getElementById('postTitle').focus();
@@ -338,6 +506,7 @@
   function closeModal() {
     modalOverlay.classList.remove('open');
     composeForm.reset();
+    resetAttachment();
     videoLivePreview.style.display = 'none';
     videoLivePreview.innerHTML = '';
   }
@@ -349,7 +518,7 @@
     if (e.target === modalOverlay) closeModal();
   });
 
-  // Xem trước video theo thời gian thực khi dán link
+  // Xem trước video theo thời gian thực khi dán link trực tuyến
   postVideoInput.addEventListener('input', (e) => {
     const val = e.target.value.trim();
     if (val) {
@@ -372,7 +541,13 @@
     const videoUrl = postVideoInput.value.trim();
     const content = document.getElementById('postContent').value.trim();
 
-    const payload = { title, category, videoUrl, content };
+    const payload = { 
+      title, 
+      category, 
+      videoUrl, 
+      content,
+      attachment: currentAttachment
+    };
 
     if (isApiAvailable) {
       try {
@@ -399,6 +574,7 @@
       category,
       videoUrl,
       content,
+      attachment: currentAttachment,
       date: new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(now),
       timestamp: Date.now()
     };
