@@ -11,7 +11,7 @@
   --text-tertiary: #969188;
   --border-subtle: #E8E4DC;
   --border-hover: #D4CEBF;
-  
+
   /* Điểm nhấn màu xanh rêu cổ điển (Deep Forest Pine) */
   --accent: #374737;
   --accent-hover: #2B382B;
@@ -96,7 +96,7 @@
 .wave-layer {
   position: absolute;
   inset: -25%;
-  background: 
+  background:
     radial-gradient(circle at 25% 30%, var(--wave-c1) 0%, transparent 55%),
     radial-gradient(circle at 80% 65%, var(--wave-c2) 0%, transparent 60%),
     radial-gradient(circle at 45% 85%, var(--wave-c3) 0%, transparent 65%),
@@ -110,7 +110,7 @@
 .wave-layer-2 {
   position: absolute;
   inset: -20%;
-  background: 
+  background:
     radial-gradient(circle at 60% 35%, var(--wave-c4) 0%, transparent 50%),
     radial-gradient(circle at 30% 75%, var(--wave-c2) 0%, transparent 55%);
   filter: blur(80px);
@@ -119,15 +119,31 @@
 }
 
 @keyframes waveUndulate {
-  0% { transform: scale(1) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(1.12) translate(-3%, 3%) rotate(6deg); }
-  100% { transform: scale(1.04) translate(3%, -3%) rotate(-5deg); }
+  0% {
+    transform: scale(1) translate(0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(1.12) translate(-3%, 3%) rotate(6deg);
+  }
+
+  100% {
+    transform: scale(1.04) translate(3%, -3%) rotate(-5deg);
+  }
 }
 
 @keyframes waveUndulateReverse {
-  0% { transform: scale(1.08) translate(3%, -2%) rotate(0deg); }
-  50% { transform: scale(0.96) translate(-2%, 3%) rotate(-6deg); }
-  100% { transform: scale(1.15) translate(2%, 2%) rotate(5deg); }
+  0% {
+    transform: scale(1.08) translate(3%, -2%) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(0.96) translate(-2%, 3%) rotate(-6deg);
+  }
+
+  100% {
+    transform: scale(1.15) translate(2%, 2%) rotate(5deg);
+  }
 }
 
 [data-theme="custom-wave"] .post-entry {
@@ -304,17 +320,41 @@ body {
   background: var(--pill-bg);
 }
 
-.icon-sun { display: none; }
-.icon-moon { display: block; }
-.icon-wave { display: none; }
+.icon-sun {
+  display: none;
+}
 
-[data-theme="dark"] .icon-sun { display: none; }
-[data-theme="dark"] .icon-moon { display: none; }
-[data-theme="dark"] .icon-wave { display: block; }
+.icon-moon {
+  display: block;
+}
 
-[data-theme="custom-wave"] .icon-sun { display: block; }
-[data-theme="custom-wave"] .icon-moon { display: none; }
-[data-theme="custom-wave"] .icon-wave { display: none; }
+.icon-wave {
+  display: none;
+}
+
+[data-theme="dark"] .icon-sun {
+  display: none;
+}
+
+[data-theme="dark"] .icon-moon {
+  display: none;
+}
+
+[data-theme="dark"] .icon-wave {
+  display: block;
+}
+
+[data-theme="custom-wave"] .icon-sun {
+  display: block;
+}
+
+[data-theme="custom-wave"] .icon-moon {
+  display: none;
+}
+
+[data-theme="custom-wave"] .icon-wave {
+  display: none;
+}
 
 /* ==========================================================================
    Toolbar: Category Filter & Search
@@ -457,7 +497,8 @@ body {
 .media-viewport {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 */
+  padding-bottom: 56.25%;
+  /* 16:9 */
   height: 0;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -514,7 +555,8 @@ body {
 }
 
 /* Trạng thái trống & tải */
-.state-empty, .state-loading {
+.state-empty,
+.state-loading {
   text-align: center;
   padding: 60px 20px;
   color: var(--text-secondary);
@@ -595,7 +637,9 @@ body {
   gap: 12px;
 }
 
-.flex-1 { flex: 1; }
+.flex-1 {
+  flex: 1;
+}
 
 .field-label {
   display: block;
@@ -698,25 +742,32 @@ body {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .brand-title {
     font-size: 1.75rem;
   }
+
   .toolbar-section {
     flex-direction: column;
     align-items: stretch;
   }
+
   .search-container input {
     width: 100%;
   }
+
   .search-container input:focus {
     width: 100%;
   }
+
   .post-entry {
     padding: 22px 20px;
   }
+
   .post-heading {
     font-size: 1.35rem;
   }
+
   .footer-meta {
     flex-direction: column;
     align-items: flex-start;
@@ -877,7 +928,7 @@ body {
   border-radius: 50%;
   background: #ffffff;
   border: 2px solid var(--accent);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
@@ -935,13 +986,23 @@ body {
 }
 
 @keyframes miniWaveMove {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(30px, 15px) scale(1.2); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(30px, 15px) scale(1.2);
+  }
 }
 
 @keyframes miniWaveMoveRev {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-25px, -10px) scale(0.9); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(-25px, -10px) scale(0.9);
+  }
 }
 
 .mini-wave-text {
@@ -951,7 +1012,7 @@ body {
   font-size: 0.95rem;
   font-style: italic;
   color: #FAF8F5;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* ==========================================================================
@@ -975,7 +1036,8 @@ body {
   gap: 4px;
 }
 
-.drop-zone:hover, .drop-zone.dragover {
+.drop-zone:hover,
+.drop-zone.dragover {
   border-color: var(--accent);
   background: var(--pill-bg);
 }
@@ -1174,3 +1236,1342 @@ body {
   display: block;
 }
 
+/* ==========================================================================
+   Google Drive Header Button & Trạng Thái
+   ========================================================================== */
+.gdrive-header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  font-size: 0.84rem;
+  padding: 8px 14px;
+}
+
+.gdrive-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--text-tertiary);
+  transition: background-color var(--transition);
+}
+
+.gdrive-status-dot.connected {
+  background-color: #00AC47;
+  box-shadow: 0 0 6px rgba(0, 172, 71, 0.6);
+}
+
+/* ==========================================================================
+   Gợi Ý Tìm Kiếm (Search Autocomplete Suggestions)
+   ========================================================================== */
+.search-container {
+  position: relative;
+}
+
+.search-suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 6px 0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+[data-theme="custom-wave"] .search-suggestions {
+  background: rgba(22, 26, 23, 0.88);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.suggestion-group-title {
+  padding: 8px 14px 4px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.suggestion-item:hover,
+.suggestion-item.highlighted {
+  background: var(--accent-light);
+}
+
+.suggestion-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.suggestion-text-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.suggestion-title {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-sub {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-badge {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--pill-bg);
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Khu Vực Quản Lý Thư Mục (File Explorer Section)
+   ========================================================================== */
+.explorer-section {
+  margin: 16px 0 28px 0;
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-warm);
+  transition: border-color var(--transition);
+}
+
+[data-theme="custom-wave"] .explorer-section {
+  background: rgba(22, 26, 23, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.explorer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.explorer-breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.crumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+  font-weight: 400;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.crumb-item:hover {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.crumb-item.active {
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: default;
+  background: none;
+}
+
+.crumb-sep {
+  color: var(--text-tertiary);
+  user-select: none;
+}
+
+.explorer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Grid Lưới Thư Mục */
+.folders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.folder-card {
+  position: relative;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+  user-select: none;
+}
+
+.folder-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+/* Hiệu ứng khi kéo thả file đè lên thư mục */
+.folder-card.drag-over {
+  border: 2px dashed var(--accent) !important;
+  background: var(--accent-light) !important;
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.folder-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.folder-icon {
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+}
+
+.folder-menu-wrap {
+  position: relative;
+}
+
+.folder-menu-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: color var(--transition), background var(--transition);
+}
+
+.folder-menu-btn:hover {
+  color: var(--text-primary);
+  background: var(--pill-bg);
+}
+
+.folder-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  z-index: 50;
+  min-width: 130px;
+  padding: 4px;
+  display: none;
+}
+
+.folder-dropdown.show {
+  display: block;
+}
+
+.folder-dropdown-item {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background var(--transition);
+}
+
+.folder-dropdown-item:hover {
+  background: var(--accent-light);
+}
+
+.folder-dropdown-item.text-danger {
+  color: #D32F2F;
+}
+
+.folder-name {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.folder-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+}
+
+.explorer-divider {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.explorer-divider-text {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.explorer-drop-hint {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.folder-empty-notice {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 24px;
+  color: var(--text-tertiary);
+  font-size: 0.86rem;
+  font-style: italic;
+  border: 1px dashed var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+/* ==========================================================================
+   Kéo Thả và Thao Tác Di Chuyển File
+   ========================================================================== */
+.post-entry.draggable {
+  cursor: grab;
+  position: relative;
+}
+
+.post-entry.draggable:active {
+  cursor: grabbing;
+}
+
+.post-entry.dragging {
+  opacity: 0.45;
+  border: 2px dashed var(--accent);
+}
+
+.move-action-btn {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color var(--transition), background var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.move-action-btn:hover {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.folder-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.folder-badge-tag:hover {
+  opacity: 0.85;
+}
+
+/* Modal chọn thư mục đích */
+.modal-sm {
+  max-width: 440px;
+}
+
+.folder-destination-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  margin: 16px 0;
+}
+
+.dest-folder-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.dest-folder-item:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+
+.dest-folder-item.current {
+  opacity: 0.6;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+.dest-folder-name {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+/* ==========================================================================
+   Google Drive Modal & Giao Diện Sao Lưu
+   ========================================================================== */
+.gdrive-modal-card {
+  max-width: 580px;
+}
+
+.gdrive-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gdrive-account-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin: 16px 0;
+}
+
+.gdrive-account-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gdrive-user-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.gdrive-user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gdrive-user-name {
+  font-weight: 600;
+  font-size: 0.94rem;
+  color: var(--text-primary);
+}
+
+.gdrive-user-email {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+.btn-google {
+  background: #ffffff !important;
+  color: #3c4043 !important;
+  border: 1px solid #dadce0 !important;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.12);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.btn-google:hover {
+  background: #f8f9fa !important;
+  border-color: #c6c6c6 !important;
+  box-shadow: 0 2px 6px rgba(60, 64, 67, 0.18);
+}
+
+.gdrive-op-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 16px 0;
+}
+
+@media (max-width: 520px) {
+  .gdrive-op-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.op-card {
+  padding: 16px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.op-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  color: var(--accent);
+}
+
+.op-card-header h3 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.op-card p {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 14px;
+  flex: 1;
+}
+
+.gdrive-backups-container {
+  margin-top: 12px;
+  padding: 14px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.gdrive-backups-heading {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.gdrive-backups-list {
+  max-height: 180px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gdrive-backup-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+}
+
+.gdrive-backup-name {
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+.gdrive-backup-time {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.gdrive-clientid-details {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--bg-canvas);
+}
+
+.clientid-summary {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.clientid-content {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.clientid-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.gdrive-status-message {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.gdrive-status-message.success {
+  background: #E8F5E9;
+  color: #2E7D32;
+  border: 1px solid #C8E6C9;
+}
+
+.gdrive-status-message.error {
+  background: #FFEBEE;
+  color: #C62828;
+  border: 1px solid #FFCDD2;
+}
+
+.gdrive-status-message.info {
+  background: #E3F2FD;
+  color: #1565C0;
+  border: 1px solid #BBDEFB;
+}
+
+/* ==========================================================================
+   Google Drive Header Button & Trạng Thái
+   ========================================================================== */
+.gdrive-header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  font-size: 0.84rem;
+  padding: 8px 14px;
+}
+
+.gdrive-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--text-tertiary);
+  transition: background-color var(--transition);
+}
+
+.gdrive-status-dot.connected {
+  background-color: #00AC47;
+  box-shadow: 0 0 6px rgba(0, 172, 71, 0.6);
+}
+
+/* ==========================================================================
+   Gợi Ý Tìm Kiếm (Search Autocomplete Suggestions)
+   ========================================================================== */
+.search-container {
+  position: relative;
+}
+
+.search-suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 6px 0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+[data-theme="custom-wave"] .search-suggestions {
+  background: rgba(22, 26, 23, 0.88);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.suggestion-group-title {
+  padding: 8px 14px 4px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.suggestion-item:hover,
+.suggestion-item.highlighted {
+  background: var(--accent-light);
+}
+
+.suggestion-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.suggestion-text-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.suggestion-title {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-sub {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-badge {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--pill-bg);
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Khu Vực Quản Lý Thư Mục (File Explorer Section)
+   ========================================================================== */
+.explorer-section {
+  margin: 16px 0 28px 0;
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-warm);
+  transition: border-color var(--transition);
+}
+
+[data-theme="custom-wave"] .explorer-section {
+  background: rgba(22, 26, 23, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.explorer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.explorer-breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.crumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+  font-weight: 400;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.crumb-item:hover {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.crumb-item.active {
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: default;
+  background: none;
+}
+
+.crumb-sep {
+  color: var(--text-tertiary);
+  user-select: none;
+}
+
+.explorer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Grid Lưới Thư Mục */
+.folders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.folder-card {
+  position: relative;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+  user-select: none;
+}
+
+.folder-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+/* Hiệu ứng khi kéo thả file đè lên thư mục */
+.folder-card.drag-over {
+  border: 2px dashed var(--accent) !important;
+  background: var(--accent-light) !important;
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.folder-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.folder-icon {
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+}
+
+.folder-menu-wrap {
+  position: relative;
+}
+
+.folder-menu-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: color var(--transition), background var(--transition);
+}
+
+.folder-menu-btn:hover {
+  color: var(--text-primary);
+  background: var(--pill-bg);
+}
+
+.folder-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  z-index: 50;
+  min-width: 130px;
+  padding: 4px;
+  display: none;
+}
+
+.folder-dropdown.show {
+  display: block;
+}
+
+.folder-dropdown-item {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background var(--transition);
+}
+
+.folder-dropdown-item:hover {
+  background: var(--accent-light);
+}
+
+.folder-dropdown-item.text-danger {
+  color: #D32F2F;
+}
+
+.folder-name {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.folder-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+}
+
+.explorer-divider {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.explorer-divider-text {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.explorer-drop-hint {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.folder-empty-notice {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 24px;
+  color: var(--text-tertiary);
+  font-size: 0.86rem;
+  font-style: italic;
+  border: 1px dashed var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+/* ==========================================================================
+   Kéo Thả và Thao Tác Di Chuyển File
+   ========================================================================== */
+.post-entry.draggable {
+  cursor: grab;
+  position: relative;
+}
+
+.post-entry.draggable:active {
+  cursor: grabbing;
+}
+
+.post-entry.dragging {
+  opacity: 0.45;
+  border: 2px dashed var(--accent);
+}
+
+.move-action-btn {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color var(--transition), background var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.move-action-btn:hover {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.folder-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.folder-badge-tag:hover {
+  opacity: 0.85;
+}
+
+/* Modal chọn thư mục đích */
+.modal-sm {
+  max-width: 440px;
+}
+
+.folder-destination-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  margin: 16px 0;
+}
+
+.dest-folder-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.dest-folder-item:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+
+.dest-folder-item.current {
+  opacity: 0.6;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+.dest-folder-name {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+/* ==========================================================================
+   Google Drive Modal & Giao Diện Sao Lưu
+   ========================================================================== */
+.gdrive-modal-card {
+  max-width: 580px;
+}
+
+.gdrive-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gdrive-account-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin: 16px 0;
+}
+
+.gdrive-account-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gdrive-user-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.gdrive-user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gdrive-user-name {
+  font-weight: 600;
+  font-size: 0.94rem;
+  color: var(--text-primary);
+}
+
+.gdrive-user-email {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+.btn-google {
+  background: #ffffff !important;
+  color: #3c4043 !important;
+  border: 1px solid #dadce0 !important;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.12);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.btn-google:hover {
+  background: #f8f9fa !important;
+  border-color: #c6c6c6 !important;
+  box-shadow: 0 2px 6px rgba(60, 64, 67, 0.18);
+}
+
+.gdrive-op-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 16px 0;
+}
+
+@media (max-width: 520px) {
+  .gdrive-op-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.op-card {
+  padding: 16px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.op-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  color: var(--accent);
+}
+
+.op-card-header h3 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.op-card p {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 14px;
+  flex: 1;
+}
+
+.gdrive-backups-container {
+  margin-top: 12px;
+  padding: 14px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.gdrive-backups-heading {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.gdrive-backups-list {
+  max-height: 180px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gdrive-backup-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+}
+
+.gdrive-backup-name {
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+.gdrive-backup-time {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.gdrive-clientid-details {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--bg-canvas);
+}
+
+.clientid-summary {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.clientid-content {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.clientid-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.gdrive-status-message {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.gdrive-status-message.success {
+  background: #E8F5E9;
+  color: #2E7D32;
+  border: 1px solid #C8E6C9;
+}
+
+.gdrive-status-message.error {
+  background: #FFEBEE;
+  color: #C62828;
+  border: 1px solid #FFCDD2;
+}
+
+.gdrive-status-message.info {
+  background: #E3F2FD;
+  color: #1565C0;
+  border: 1px solid #BBDEFB;
+}

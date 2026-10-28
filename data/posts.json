@@ -6,7 +6,8 @@
     "videoUrl": "https://www.youtube.com/watch?v=jfKfPfyJRdk",
     "content": "Gió heo may chớm lạnh trên những con phố rợp bóng xà cừ. Buổi sáng pha một ấm trà sen, mở bản nhạc êm này và ngắm nhìn nhịp sống ngoài ban công trôi chầm chậm. Đôi khi, điều xa xỉ nhất của người trưởng thành chỉ là được sống trọn vẹn trong một khoảng lặng không vội vã.",
     "date": "28/10/2026",
-    "timestamp": 1793184600000
+    "timestamp": 1793184600000,
+    "folderId": null
   },
   {
     "id": "post-3",
@@ -15,6 +16,27 @@
     "videoUrl": "https://www.youtube.com/watch?v=5qap5aO4i9A",
     "content": "Ghi lại những vệt nắng xiên qua tán cây bàng vào lúc 4 giờ chiều. Ánh sáng vàng dịu khiến mọi góc quen thuộc trong căn phòng bỗng trở nên thật nên thơ.",
     "date": "25/10/2026",
-    "timestamp": 1792925400000
+    "timestamp": 1792925400000,
+    "folderId": null
+  },
+  {
+    "id": "post-doc-1",
+    "title": "Bản thảo tản văn & Kế hoạch sáng tạo 2026",
+    "category": "Tài liệu",
+    "videoUrl": "",
+    "content": "Tuyển tập những ghi chép, tài liệu nghiên cứu và dàn ý các bài viết chuyên đề trong năm.",
+    "date": "28/10/2026",
+    "timestamp": 1793190000000,
+    "folderId": "folder-1"
+  },
+  {
+    "id": "post-doc-2",
+    "title": "Cẩm nang thiết kế tối giản và nghệ thuật typography.pdf",
+    "category": "Tài liệu",
+    "videoUrl": "",
+    "content": "Tài liệu ghi chú về cách phân cấp kiểu chữ, tỉ lệ lề trang và bố cục chuẩn cho các ấn phẩm mang tính tản văn, thư viện tài liệu.",
+    "date": "28/10/2026",
+    "timestamp": 1793191000000,
+    "folderId": null
   }
 ]

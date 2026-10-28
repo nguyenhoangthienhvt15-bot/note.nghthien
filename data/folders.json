@@ -1,0 +1,15 @@
+[
+  {
+    "id": "folder-1",
+    "name": "Bản thảo xuất bản",
+    "parentId": null,
+    "createdAt": 1793180000000
+  },
+  {
+    "id": "folder-2",
+    "name": "Tài liệu PDF & Tham khảo",
+    "parentId": null,
+    "createdAt": 1793185000000
+  }
+]
+
