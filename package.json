@@ -1,0 +1,19 @@
+{
+  "name": "personal-journal",
+  "version": "1.0.0",
+  "description": "Website nhật ký cá nhân tinh giản, hỗ trợ video đa nền tảng (Zero dependencies)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "journal",
+    "blog",
+    "minimalist",
+    "video-blog",
+    "editorial"
+  ],
+  "author": "",
+  "license": "MIT"
+}
